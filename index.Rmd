@@ -6,7 +6,7 @@ output: html_document
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
 
-library(crosstalk) ; library(tidyverse) ; library(sf) ; library(leaflet) ; library(leaflet.extras) ; library(reactable) ; library(shiny) ; library(htmlwidgets)
+library(crosstalk) ; library(tidyverse) ; library(sf) ; library(leaflet) ; library(leaflet.extras) ; library(reactable) ; library(shiny) ; library(htmlwidgets) ; library(htmltools)
 
 # local authority boundary
 sf <- st_read("local_authority.geojson", quiet = TRUE)
@@ -30,6 +30,7 @@ map <- leaflet(sd, width = "100%", height = 400) %>%
   addTiles(urlTemplate = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a> | <a href="https://www.ons.gov.uk/methodology/geography/licences">Contains OS data © Crown copyright and database right (2020)</a> | Source: <a href="https://www.trafford.gov.uk/parks" target="_blank">Trafford Council</a>', options = tileOptions(minZoom = 11, maxZoom = 18)) %>%
   addPolygons(data = sf, fillColor = "#CCCCCC", weight = 0.8, opacity = 1, color = "#212121") %>%  
   addAwesomeMarkers(popup = df$popup, icon = ~makeAwesomeIcon(icon = "tree-deciduous", library = "glyphicon", iconColor = "#006d2c", markerColor = "lightgreen")) %>%
+  addResetMapButton() %>% 
   onRender(paste0("function(el, x) {$('head').append(","\'<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\'",");}"))
 ```
 
@@ -74,6 +75,16 @@ h1, h2, h3, h4 {
 }
 ```
 
+```{r, logo}
+a(
+  href = "https://www.trafforddatalab.io", 
+  img(src = "https://www.trafforddatalab.io/assets/logo/trafforddatalab_logo.svg", 
+      alt = "Trafford Data Lab", 
+      width = "100",
+      style = "position:absolute; top:0; right:0; padding:10px;")
+  )
+```
+
 ```{r, ui}
 div(
   br(),
@@ -102,3 +113,5 @@ div(
   h4("Friends' Groups", style = "margin-bottom: 20px;"),
   table)
 ```
+
+For more information about parks in Trafford, please visit <a href='https://www.trafford.gov.uk/parks' target='_blank'>trafford.gov.uk/parks</a>
