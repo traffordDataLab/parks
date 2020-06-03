@@ -1,0 +1,98 @@
+---
+title: Public parks in Trafford
+output: html_document
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+library(crosstalk) ; library(tidyverse) ; library(sf) ; library(leaflet) ; library(leaflet.extras) ; library(reactable) ; library(shiny) ; library(htmlwidgets)
+
+# local authority boundary
+sf <- st_read("local_authority.geojson", quiet = TRUE)
+
+# parks
+df <- read_csv("parks.csv") %>% 
+  mutate(website = ifelse(is.na(website), "", str_c("<a href='", website, "'target='_blank'>", str_remove(website, "http://www.|https://www.|www.|http://|https://"), "</a>")),
+         twitter = ifelse(is.na(twitter), "", str_c("<a href='https://twitter.com/", twitter, "' target='_blank'>@", twitter, "</a>")),
+         green_flag = ifelse(is.na(green_flag), "", str_c("<a href='", green_flag, "'target='_blank'>Green Flag Award winner</a>")),
+         popup = ifelse(is.na(green_flag), str_c("<strong>", name, "</strong>") %>% map(HTML), str_c("<strong>", name, "</strong><br/>", green_flag) %>% map(HTML)))
+
+# shared dataframe
+sd <- SharedData$new(df, group = "name")
+# subset of shared dataframe
+sd_table <- select(df, name, website, twitter) %>%
+  SharedData$new(group = "name")
+```
+
+```{r, map}
+map <- leaflet(sd, width = "100%", height = 400) %>%
+  addTiles(urlTemplate = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a> | <a href="https://www.ons.gov.uk/methodology/geography/licences">Contains OS data © Crown copyright and database right (2020)</a> | Source: <a href="https://www.trafford.gov.uk/parks" target="_blank">Trafford Council</a>', options = tileOptions(minZoom = 11, maxZoom = 18)) %>%
+  addPolygons(data = sf, fillColor = "#CCCCCC", weight = 0.8, opacity = 1, color = "#212121") %>%  
+  addAwesomeMarkers(popup = df$popup, icon = ~makeAwesomeIcon(icon = "tree-deciduous", library = "glyphicon", iconColor = "#006d2c", markerColor = "lightgreen")) %>%
+  onRender(paste0("function(el, x) {$('head').append(","\'<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\'",");}"))
+```
+
+```{r, table}
+table <- reactable(
+  sd_table,
+  columns = list(
+    name = colDef(name = "Park"),
+    website = colDef(name = "Website", html = TRUE),
+    twitter = colDef(name = "Twitter", html = TRUE)),
+  compact = TRUE,
+  borderless = TRUE,
+  sortable = FALSE,
+  wrap = FALSE,
+  highlight = TRUE,
+  selection = "multiple",
+  onClick = "select",
+  rowStyle = list(cursor = "pointer")
+)
+```
+
+```{css}
+@import url('https://fonts.googleapis.com/css?family=Open+Sans%7CRoboto');
+
+html, body {
+  font-family: 'Open Sans', sans-serif;
+}
+        
+h1, h2, h3, h4 {
+  font-family: 'Roboto', sans-serif;
+  color: #707070;
+}
+
+.form-group {
+  margin-bottom: 0px;
+}
+```
+
+```{r, ui}
+div(
+  br(),
+  bscols(widths = c(NA, 3, 3),
+         map,
+         list(
+           h4("Park facilities"),
+           filter_checkbox(id = "playground", label = NULL, sharedData = sd, group = ~ifelse(playground == 1, "Playground", NA), inline = TRUE),
+           filter_checkbox(id = "cafe", label = NULL, sharedData = sd, group = ~ifelse(cafe == 1, "Cafe", NA), inline = TRUE),
+           filter_checkbox(id = "toilets", label = NULL, sharedData = sd, group = ~ifelse(toilets == 1, "Toilets", NA), inline = TRUE),
+           filter_checkbox(id = "accessible_toilet", label = NULL, sharedData = sd, group = ~ifelse(accessible_toilet == 1, "Accessible toilet", NA), inline = TRUE),
+           filter_checkbox(id = "pets_corner", label = NULL, sharedData = sd, group = ~ifelse(pets_corner == 1, "Pets' corner", NA), inline = TRUE),
+           filter_checkbox(id = "miniature_railway", label = NULL, sharedData = sd, group = ~ifelse(miniature_railway == 1, "Miniature railway", NA), inline = TRUE)
+           ),
+         list(
+           br(style = "margin-top: 10px; margin-bottom: 10px;"),
+           filter_checkbox(id = "basketball", label = NULL, sharedData = sd, group = ~ifelse(basketball == 1, "Basketball", NA), inline = TRUE),
+           filter_checkbox(id = "bowling", label = NULL, sharedData = sd, group = ~ifelse(bowling == 1, "Bowling green", NA), inline = TRUE),
+           filter_checkbox(id = "tennis", label = NULL, sharedData = sd, group = ~ifelse(tennis == 1, "Tennis courts", NA), inline = TRUE),
+           filter_checkbox(id = "football", label = NULL, sharedData = sd, group = ~ifelse(football == 1, "Football pitches", NA), inline = TRUE),
+           filter_checkbox(id = "outdoor_gym", label = NULL, sharedData = sd, group = ~ifelse(outdoor_gym == 1, "Outdoor gym", NA), inline = TRUE),
+           filter_checkbox(id = "bmx_track", label = NULL, sharedData = sd, group = ~ifelse(bmx_track == 1, "BMX track", NA), inline = TRUE),
+           filter_checkbox(id = "skate_park", label = NULL, sharedData = sd, group = ~ifelse(skate_park == 1, "Skate park", NA), inline = TRUE)
+           )
+         ),
+  h4("Friends' Groups", style = "margin-bottom: 20px;"),
+  table)
+```
