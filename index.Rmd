@@ -114,4 +114,4 @@ div(
   table)
 ```
 
-For more information about parks in Trafford, please visit <a href='https://www.trafford.gov.uk/parks' target='_blank'>trafford.gov.uk/parks</a>
+<p>If you spot an error, or if there is something you'd like to see added, please contact us at <a href="mailto:infotrafford@trafford.gov.uk">infotrafford@trafford.gov.uk</a>. For more information about parks in Trafford, please visit <a href='https://www.trafford.gov.uk/parks' target='_blank'>trafford.gov.uk/parks</a></p>
