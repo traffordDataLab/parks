@@ -1,0 +1,34 @@
+### Parks visited
+
+- [ ] Abbotsfield Park
+- [ ] Ashton Park
+- [ ] Broadway Park
+- [ ] Cross Lane Park
+- [ ] Dainewell Park
+- [ ] Davies Road
+- [ ] Davyhulme Park
+- [ ] Denzel Gardens and the Devisdale
+- [ ] Flixton Park
+- [ ] Golden Hill Park
+- [x] Gorse Hill Park
+- [ ] Halecroft Park
+- [ ] Hullard Park
+- [ ] John Leigh Park
+- [ ] Longford Park
+- [ ] Lostock Park
+- [x] Marje Kelly Park
+- [ ] Moor Nook Park
+- [ ] Moss Park
+- [ ] Navigation Park
+- [ ] Newton Park
+- [ ] Pickering Lodge
+- [ ] Seymour Park
+- [ ] Stamford Park
+- [ ] Victoria Park
+- [ ] Walkden Gardens
+- [ ] Walton Park
+- [ ] Weathercock Farm
+- [ ] Woodheys Park
+- [ ] Woodsend Park
+- [ ] Woodstock Park
+- [ ] Worthington Park
