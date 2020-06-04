@@ -86,13 +86,13 @@ a(
   img(src = "https://www.trafforddatalab.io/assets/logo/trafforddatalab_logo.svg", 
       alt = "Trafford Data Lab", 
       width = "100",
-      style = "position:absolute; top:0; right:0; padding:10px;")
+      style = "position:absolute; top:0; right:0; padding: 10px;")
   )
 ```
 
 ```{r, ui}
 div(class="container-fluid",
-  h2("Public parks in Trafford", style = "margin-bottom: 20px;"),
+  h2("Public parks in Trafford", style = "padding-top: 25px; margin-bottom: 20px;"),
   div(class = "row",
   div(class="col-sm-6", map),
   h4("Park facilities", style = "margin-bottom: 0px;"),
