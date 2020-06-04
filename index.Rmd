@@ -1,5 +1,5 @@
 ---
-title: Public parks in Trafford
+pagetitle: "Public parks in Trafford"
 output: html_document
 ---
 
@@ -27,10 +27,15 @@ sd_table <- select(df, name, website, twitter) %>%
 
 ```{r, map}
 map <- leaflet(sd, width = "100%", height = 400) %>%
-  addTiles(urlTemplate = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a> | <a href="https://www.ons.gov.uk/methodology/geography/licences">Contains OS data © Crown copyright and database right (2020)</a> | Source: <a href="https://www.trafford.gov.uk/parks" target="_blank">Trafford Council</a>', options = tileOptions(minZoom = 11, maxZoom = 18)) %>%
+  addTiles(urlTemplate = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a> | <a href="https://www.ons.gov.uk/methodology/geography/licences">Contains OS data © Crown copyright and database right (2020)</a>', options = tileOptions(minZoom = 11, maxZoom = 18)) %>%
   addPolygons(data = sf, fillColor = "#CCCCCC", weight = 0.8, opacity = 1, color = "#212121") %>%  
   addAwesomeMarkers(popup = df$popup, icon = ~makeAwesomeIcon(icon = "tree-deciduous", library = "glyphicon", iconColor = "#006d2c", markerColor = "lightgreen")) %>%
-  addResetMapButton() %>% 
+  addEasyButton(
+    easyButton(
+      position = "topleft",
+      icon = "fa-crosshairs",
+      title = "Locate me",
+      onClick = JS(c("function(btn,  map){map.locate({setView:true,enableHighAccuracy: true })}")))) %>% 
   onRender(paste0("function(el, x) {$('head').append(","\'<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\'",");}"))
 ```
 
@@ -86,6 +91,7 @@ a(
 ```
 
 ```{r, ui}
+h2("Public parks in Trafford")
 div(
   br(),
   bscols(widths = c(NA, 3, 3),
