@@ -95,7 +95,7 @@ div(class = "container-fluid",
   h2("Public parks in Trafford", style = "padding-top: 25px; margin-bottom: 20px;"),
   div(class = "row",
       div(class = "col-xs-12 col-sm-6 col-md-6 col-lg-6", map),
-      h4("Facilities", style = "margin-bottom: 0px; text-indent: 2em;"),
+      h4("Facilities", style = "margin-bottom: 0px; text-indent: 0.8em;"),
       div(class = "col-xs-6 col-sm-3 col-md-3 col-lg-3", 
           list(
             # Playground
@@ -128,7 +128,7 @@ div(class = "container-fluid",
           # Skate park
           filter_checkbox(id = "skate_park", label = NULL, sharedData = sd, group = ~ifelse(skate_park == 1, "Skate park", NA), inline = TRUE))),
   br(),
-  h4("Friends' Groups", style = "margin-bottom: 15px; text-indent: 2.2em;"),
+  h4("Friends' Groups", style = "margin-bottom: 15px;"),
   div(class = "row",
   div(class = "col-sm-12", table)),
   div(class = "row",
