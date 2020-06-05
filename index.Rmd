@@ -91,35 +91,51 @@ a(
 ```
 
 ```{r, ui}
-div(class="container-fluid",
+div(class = "container-fluid",
   h2("Public parks in Trafford", style = "padding-top: 25px; margin-bottom: 20px;"),
   div(class = "row",
-  div(class="col-sm-6", map),
-  h4("Park facilities", style = "margin-bottom: 0px;"),
-  div(class="col-sm-3", list(
-           filter_checkbox(id = "playground", label = NULL, sharedData = sd, group = ~ifelse(playground == 1, "Playground", NA), inline = TRUE),
-           filter_checkbox(id = "cafe", label = NULL, sharedData = sd, group = ~ifelse(cafe == 1, "Cafe", NA), inline = TRUE),
-           filter_checkbox(id = "toilets", label = NULL, sharedData = sd, group = ~ifelse(toilets == 1, "Toilets", NA), inline = TRUE),
-           filter_checkbox(id = "accessible_toilet", label = NULL, sharedData = sd, group = ~ifelse(accessible_toilet == 1, "Accessible toilet", NA), inline = TRUE),
-           filter_checkbox(id = "pets_corner", label = NULL, sharedData = sd, group = ~ifelse(pets_corner == 1, "Pets' corner", NA), inline = TRUE),
-           filter_checkbox(id = "miniature_railway", label = NULL, sharedData = sd, group = ~ifelse(miniature_railway == 1, "Miniature railway", NA), inline = TRUE),
-           filter_checkbox(id = "basketball", label = NULL, sharedData = sd, group = ~ifelse(basketball == 1, "Basketball", NA), inline = TRUE)
+      div(class = "col-xs-12 col-sm-6 col-md-6 col-lg-6", map),
+      h4("Park facilities", style = "margin-bottom: 0px; text-indent: 2em;"),
+      div(class = "col-xs-6 col-sm-3 col-md-3 col-lg-3", 
+          list(
+            # Playground
+            filter_checkbox(id = "playground", label = NULL, sharedData = sd, group = ~ifelse(playground == 1, "Playground", NA), inline = TRUE),
+            # Cafe
+            filter_checkbox(id = "cafe", label = NULL, sharedData = sd, group = ~ifelse(cafe == 1, "Cafe", NA), inline = TRUE),
+            # Toilets
+            filter_checkbox(id = "toilets", label = NULL, sharedData = sd, group = ~ifelse(toilets == 1, "Toilets", NA), inline = TRUE),
+            # Accessible toilets
+            filter_checkbox(id = "accessible_toilet", label = NULL, sharedData = sd, group = ~ifelse(accessible_toilet == 1, "Accessible toilet", NA), inline = TRUE),
+            # Pets' corner
+            filter_checkbox(id = "pets_corner", label = NULL, sharedData = sd, group = ~ifelse(pets_corner == 1, "Pets' corner", NA), inline = TRUE),
+            # Miniature railway
+            filter_checkbox(id = "miniature_railway", label = NULL, sharedData = sd, group = ~ifelse(miniature_railway == 1, "Miniature railway", NA), inline = TRUE),
+            # Basketball
+            filter_checkbox(id = "basketball", label = NULL, sharedData = sd, group = ~ifelse(basketball == 1, "Basketball", NA), inline = TRUE)
            )),
-    div(class="col-sm-3", list(
-           filter_checkbox(id = "bowling", label = NULL, sharedData = sd, group = ~ifelse(bowling == 1, "Bowling green", NA), inline = TRUE),
-           filter_checkbox(id = "tennis", label = NULL, sharedData = sd, group = ~ifelse(tennis == 1, "Tennis courts", NA), inline = TRUE),
-           filter_checkbox(id = "football", label = NULL, sharedData = sd, group = ~ifelse(football == 1, "Football pitches", NA), inline = TRUE),
-           filter_checkbox(id = "outdoor_gym", label = NULL, sharedData = sd, group = ~ifelse(outdoor_gym == 1, "Outdoor gym", NA), inline = TRUE),
-           filter_checkbox(id = "bmx_track", label = NULL, sharedData = sd, group = ~ifelse(bmx_track == 1, "BMX track", NA), inline = TRUE)),
-           filter_checkbox(id = "skate_park", label = NULL, sharedData = sd, group = ~ifelse(skate_park == 1, "Skate park", NA), inline = TRUE))),
+      div(class = "col-xs-6 col-sm-3 col-md-3 col-lg-3", 
+          list(
+            # Bowling green
+            filter_checkbox(id = "bowling", label = NULL, sharedData = sd, group = ~ifelse(bowling == 1, "Bowling green", NA), inline = TRUE),
+            # Tennis courts
+            filter_checkbox(id = "tennis", label = NULL, sharedData = sd, group = ~ifelse(tennis == 1, "Tennis courts", NA), inline = TRUE),
+            # Football
+            filter_checkbox(id = "football", label = NULL, sharedData = sd, group = ~ifelse(football == 1, "Football pitches", NA), inline = TRUE),
+            # Outdoor gym
+            filter_checkbox(id = "outdoor_gym", label = NULL, sharedData = sd, group = ~ifelse(outdoor_gym == 1, "Outdoor gym", NA), inline = TRUE),
+            # BMX track
+            filter_checkbox(id = "bmx_track", label = NULL, sharedData = sd, group = ~ifelse(bmx_track == 1, "BMX track", NA), inline = TRUE)),
+          # Skate park
+          filter_checkbox(id = "skate_park", label = NULL, sharedData = sd, group = ~ifelse(skate_park == 1, "Skate park", NA), inline = TRUE))),
   br(),
-  h4("Friends' Groups"),
+  h4("Park Friends' Groups", style = "margin-bottom: 15px; text-indent: 2.2em;"),
   div(class = "row",
-  div(class="col-sm-12", table)),
+  div(class = "col-sm-12", table)),
   div(class = "row",
-  div(class="col-sm-12", 
-      p("If you spot an error, or if there is something you'd like to see added, please contact us at", a("infotrafford@trafford.gov.uk", href='mailto:infotrafford@trafford.gov.uk')), 
-      p("For more information about parks in Trafford, please visit", a("trafford.gov.uk/parks", href='https://www.trafford.gov.uk/parks', target="_blank"))),
-  br()
-))
+      div(class = "col-sm-12", 
+          p("If you spot an error, or if there is something you'd like to see added, please contact us at", a("infotrafford@trafford.gov.uk", href = 'mailto:infotrafford@trafford.gov.uk')), 
+          p("For more information about parks in Trafford, please visit", a("trafford.gov.uk/parks", href = 'https://www.trafford.gov.uk/parks', target = "_blank"))),
+      br()
+      )
+  )
 ```
