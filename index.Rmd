@@ -12,10 +12,10 @@ library(crosstalk) ; library(tidyverse) ; library(sf) ; library(leaflet) ; libra
 sf <- st_read("local_authority.geojson", quiet = TRUE)
 
 # parks
-df <- read_csv("parks.csv") %>% 
+df <- read_csv("data/parks.csv") %>% 
   mutate(website = ifelse(is.na(website), "", str_c("<a href='", website, "'target='_blank'>", str_remove(website, "http://www.|https://www.|www.|http://|https://"), "</a>")),
          twitter = ifelse(is.na(twitter), "", str_c("<a href='https://twitter.com/", twitter, "' target='_blank'>@", twitter, "</a>")),
-         green_flag = ifelse(is.na(green_flag), "", str_c("<a href='", green_flag, "'target='_blank'>Green Flag Award winner</a>")),
+         green_flag = ifelse(is.na(green_flag), "", str_c("<a href='", green_flag, "'target='_blank'>Green Flag Award Winner 2019/20</a>")),
          popup = ifelse(is.na(green_flag), str_c("<strong>", name, "</strong>") %>% map(HTML), str_c("<strong>", name, "</strong><br/>", green_flag) %>% map(HTML)))
 
 # shared dataframe
