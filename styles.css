@@ -22,7 +22,22 @@ header, main
     display: block;
 }
 
+a, a:hover, a:focus, a:visited, .leaflet-container a
+{
+    color: #046dc3;
+}
+
 .form-group
 {
     margin-bottom: 0;
+}
+
+.leaflet-bar a
+{
+    color: #000;
+}
+
+.leaflet-bar a.leaflet-disabled
+{
+    color: #757575;
 }
