@@ -81,7 +81,7 @@ div(class = "container-fluid",
   div(class = "row",
       h1("Public parks in Trafford", style = "padding-top: 25px; margin-bottom: 20px;"),
       div(class = "col-xs-12 col-sm-6 col-md-6 col-lg-6", map),
-      h2("Facilities", style = "margin-top: -3px; margin-bottom: -5px;"),
+      h2("Facilities", style = "margin-top: -3px;"),
       div(class = "col-xs-6 col-sm-3 col-md-3 col-lg-3", 
           list(
             # Playground
@@ -126,3 +126,16 @@ div(class = "container-fluid",
   )
 ```
 </main>
+<script>
+  // Remove label tags created by crosstalk for the checkboxes causing validation errors
+  // Reason for the error is that the 'for' attribute isn't referencing an id of a form control
+  // NOTE: the do while loop always references array index 0 because as the elements are removed from the DOM they are also removed from the array
+ 
+  var arrEmptyLabels = document.getElementsByClassName('control-label');
+  
+  do {
+    var parent = arrEmptyLabels[0].parentNode;
+    parent.removeChild(arrEmptyLabels[0]);
+  }
+  while (arrEmptyLabels.length > 0);
+</script>

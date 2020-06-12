@@ -27,11 +27,13 @@ a, a:hover, a:focus, a:visited, .leaflet-container a
     color: #046dc3;
 }
 
+/* the facilities checkboxes */
 .form-group
 {
-    margin-bottom: 0;
+    margin-bottom: 0.5em;
 }
 
+/* for the content of the zoom control */
 .leaflet-bar a
 {
     color: #000;
