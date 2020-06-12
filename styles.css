@@ -1,22 +1,28 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans%7CRoboto');
 
-body {
+html, body
+{
     font-family: 'Open Sans', sans-serif;
 }
 
-h1, h2, h3, h4 {
+h1, h2
+{
     font-family: 'Roboto', sans-serif;
     color: #707070;
+    text-indent: 14px;
 }
 
-h2 {
+h2
+{
     font-size: 1.6em;
 }
 
-header, main {
+header, main
+{
     display: block;
 }
 
-.form-group {
+.form-group
+{
     margin-bottom: 0;
 }
