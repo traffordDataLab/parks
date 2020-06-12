@@ -1,6 +1,9 @@
 ---
 pagetitle: "Public parks in Trafford"
-output: html_document
+lang: "en-GB"
+output: 
+  html_document:
+    css: styles.css
 ---
 
 ```{r setup, include = FALSE}
@@ -62,28 +65,7 @@ table <- reactable(
   rowStyle = list(cursor = "pointer")
 )
 ```
-
-```{css}
-@import url('https://fonts.googleapis.com/css?family=Open+Sans%7CRoboto');
-
-html, body {
-  font-family: 'Open Sans', sans-serif;
-}
-        
-h1, h2, h3, h4 {
-  font-family: 'Roboto', sans-serif;
-  color: #707070;
-}
-
-h2 {
-  font-size: 1.6em;
-}
-
-.form-group {
-  margin-bottom: 0px;
-}
-```
-
+<header>
 ```{r, logo}
 a(
   href = "https://www.trafforddatalab.io", 
@@ -93,7 +75,7 @@ a(
       style = "position:absolute; top:0; right:0; padding: 10px;")
   )
 ```
-
+</header><main>
 ```{r, ui}
 div(class = "container-fluid",
   h1("Public parks in Trafford", style = "padding-top: 25px; margin-bottom: 20px;"),
@@ -143,3 +125,4 @@ div(class = "container-fluid",
       )
   )
 ```
+</main>
