@@ -30,7 +30,7 @@ a, a:hover, a:focus, a:visited, .leaflet-container a
 /* the facilities checkboxes */
 .form-group
 {
-    margin-bottom: 0.5em;
+    margin-bottom: 1.5em;
 }
 
 /* for the content of the zoom control */
