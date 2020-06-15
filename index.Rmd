@@ -32,13 +32,8 @@ sd_table <- select(df, name, website, twitter) %>%
 map <- leaflet(sd, width = "100%", height = 350) %>%
   addTiles(urlTemplate = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a> | <a href="https://www.ons.gov.uk/methodology/geography/licences">Contains OS data © Crown copyright and database right (2020)</a>', options = tileOptions(minZoom = 11, maxZoom = 18)) %>%
   addPolygons(data = sf, fillColor = "#CCCCCC", weight = 0.8, opacity = 1, color = "#212121") %>%  
+  addFullscreenControl() %>%
   addAwesomeMarkers(popup = df$popup, icon = ~makeAwesomeIcon(icon = "tree-deciduous", library = "glyphicon", iconColor = "#006d2c", markerColor = "lightgreen")) %>%
-  addEasyButton(
-    easyButton(
-      position = "topleft",
-      icon = "fa-crosshairs",
-      title = "Locate me",
-      onClick = JS(c("function(btn,  map){map.locate({setView:true,enableHighAccuracy: true })}")))) %>% 
   onRender(paste0("function(el, x) {$('head').append(","\'<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\'",");}"))
 ```
 
@@ -132,10 +127,27 @@ div(class = "container-fluid",
   // NOTE: the do while loop always references array index 0 because as the elements are removed from the DOM they are also removed from the array
  
   var arrEmptyLabels = document.getElementsByClassName('control-label');
+  var parent;
   
   do {
-    var parent = arrEmptyLabels[0].parentNode;
+    parent = arrEmptyLabels[0].parentNode;
     parent.removeChild(arrEmptyLabels[0]);
   }
   while (arrEmptyLabels.length > 0);
+  
+  // Remove the crosstalk selection button from the Leaflet map. Map may not have initialised at this point so set up an interval to keep calling until it has
+  var removeSelectionButtonFn = setInterval(removeSelectionButton, 100);
+  
+  function removeSelectionButton() {
+    // We don't have an id or name so have to do it by classname and then check we have the correct button
+    var arrEasyButtonContainer = document.getElementsByClassName('easy-button-container');
+  
+    for (var i = 0; i < arrEasyButtonContainer.length; i++) {
+      if (arrEasyButtonContainer[i].childNodes[0].title == "Make a selection") {
+        parent = arrEasyButtonContainer[i].parentNode;
+        parent.removeChild(arrEasyButtonContainer[i]);    // remove the whole container plus button
+        clearInterval(removeSelectionButtonFn);  // cancel any further calls to this function as we have completed all actions
+      }
+    }
+  }
 </script>
