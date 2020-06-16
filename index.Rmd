@@ -139,15 +139,41 @@ div(class = "container-fluid",
   var removeSelectionButtonFn = setInterval(removeSelectionButton, 100);
   
   function removeSelectionButton() {
-    // We don't have an id or name so have to do it by classname and then check we have the correct button
-    var arrEasyButtonContainer = document.getElementsByClassName('easy-button-container');
+    try {
+      // We don't have an id or name so have to do it by classname and then check we have the correct button by testing the 'title' attribute
+      var arrEasyButtonContainer = document.getElementsByClassName('easy-button-container');
   
-    for (var i = 0; i < arrEasyButtonContainer.length; i++) {
-      if (arrEasyButtonContainer[i].childNodes[0].title == "Make a selection") {
-        parent = arrEasyButtonContainer[i].parentNode;
-        parent.removeChild(arrEasyButtonContainer[i]);    // remove the whole container plus button
-        clearInterval(removeSelectionButtonFn);  // cancel any further calls to this function as we have completed all actions
+      for (var i = 0; i < arrEasyButtonContainer.length; i++) {
+        if (arrEasyButtonContainer[i].childNodes[0].title == "Make a selection") {
+          parent = arrEasyButtonContainer[i].parentNode;
+          parent.removeChild(arrEasyButtonContainer[i]);    // remove the whole container plus button
+          clearInterval(removeSelectionButtonFn);  // cancel any further calls to this function as we have completed all actions
+        }
       }
+    }
+    catch(e) {
+      clearInterval(removeSelectionButtonFn);   // something went wrong so cancel fn call
+    }
+  }
+  
+  // Add aria-label attribute to the fullscreen Leaflet map button to identify its purpose as the link is empty (assessibility issue)
+  // Map may not have initialised at this point so set up an interval to keep calling until it has
+  var updateFullscreenButtonFn = setInterval(updateFullscreenButton, 100);
+  
+  function updateFullscreenButton() {
+    try {
+      // We don't have an id or name so have to do it by classname
+      var arrFullscreenButtonLink = document.getElementsByClassName('leaflet-control-fullscreen-button');
+      
+      if (arrFullscreenButtonLink.length > 0) {
+        // set aria-label to describe the function of the link/button
+        arrFullscreenButtonLink[0].setAttribute('aria-label', 'Maximise/minimise map.');
+        
+        clearInterval(updateFullscreenButtonFn);    // cancel any further calls to this function as we have completed all actions
+      }
+    }
+    catch(e) {
+      clearInterval(updateFullscreenButtonFn);    // something went wrong so cancel fn call
     }
   }
 </script>
