@@ -145,7 +145,7 @@ div(class = "container-fluid",
   
       for (var i = 0; i < arrEasyButtonContainer.length; i++) {
         if (arrEasyButtonContainer[i].childNodes[0].title == "Make a selection") {
-          parent = arrEasyButtonContainer[i].parentNode;
+          var parent = arrEasyButtonContainer[i].parentNode;
           parent.removeChild(arrEasyButtonContainer[i]);    // remove the whole container plus button
           clearInterval(removeSelectionButtonFn);  // cancel any further calls to this function as we have completed all actions
         }
