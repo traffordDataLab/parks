@@ -1,15 +1,23 @@
 # Public parks in Trafford #
 
 # Source: Trafford Council
-# URL: https://www.trafford.gov.uk/residents/leisure-and-lifestyle/parks-and-open-spaces/parks-in-trafford/parks-in-trafford.aspx
+# URL: https://www.trafford.gov.uk/residents/leisure-and-lifestyle/parks-and-open-spaces/Parks-in-Trafford.aspx
 # Licence: OGL v3.0 ; © OpenStreetMap contributors (ODbL)
+
+# WARNING 2021-11-09 ---------
+# There are currently problems with this script.
+# The output created by the joining of the `parks` and `osm` objects only creates 19 observations of 3 variables.
+# This is not the expected output when looking at the current parks.csv file (32 obs. of 19 variables), with observations based on facilities etc.
+# I suspect that the final version of this pre-processing.R script that produced the output in the current format did not get committed to GitHub.
+# For reproducibility this script needs amending to create the desired output, however at the time of writing some of the source information on the council website is also outdated.
+# As a temporary measure amendments are being made directly to parks.csv
 
 library(tidyverse) ; library(rvest) ; library(osmdata) ; library(sf)
 
 # scrape park names from Trafford website
-url_base <- "https://www.trafford.gov.uk"
-url_list <- read_html("https://www.trafford.gov.uk/residents/leisure-and-lifestyle/parks-and-open-spaces/parks-in-trafford/parks-in-trafford.aspx") %>% 
-  html_nodes("#main-article li .sys_t0") %>% 
+url_base <- "https://www.trafford.gov.uk/residents/leisure-and-lifestyle/parks-and-open-spaces/Parks-in-Trafford.aspx"
+url_list <- read_html("https://www.trafford.gov.uk/residents/leisure-and-lifestyle/parks-and-open-spaces/Parks-in-Trafford.aspx") %>% 
+  html_nodes(".parks-list__item a") %>% 
   html_attr("href")
 
 parks <- map_df(url_list, function(i) {
